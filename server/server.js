@@ -18,4 +18,4 @@ app.use(cors())
 const userRouter = require("./routes/users")
 app.use("/users", userRouter)
 
-app.listen(process.env.DATABASE_PORT || 3000, () => console.log("Server started!"))
+app.listen(process.env.PORT || 3000, () => console.log("Server started!"))
