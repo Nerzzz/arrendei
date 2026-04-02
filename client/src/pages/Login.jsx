@@ -1,4 +1,4 @@
-import "../styles/login.css"
+import { Link } from "react-router"
 
 function Login() {
   return (
@@ -10,6 +10,7 @@ function Login() {
                 <input type="text" name="login" placeholder="johndoe@example.com" />
                 <input type="password" name="password" placeholder="Senha" />
                 <input type="submit" value="Entrar" />
+                <span>Não tem uma conta? <Link to={"/register"}>Crie uma</Link></span>
             </form>
         </div>
     </main>

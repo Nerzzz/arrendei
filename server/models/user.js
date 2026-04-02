@@ -9,15 +9,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    userLogin:{
+    email:{
         type: String,
         required: true
     },
-    createdAt:{
-        type: Date,
-        required: true,
-        default: Date.now
-    }
 })
 
 module.exports = mongoose.model("User", userSchema)
