@@ -15,11 +15,11 @@
 
 h1{
   font-size: 20pt;
-  font-weight: 600;
+  font-weight: 700;
 }
 h2{
   font-size: 18pt;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 section{
@@ -27,4 +27,27 @@ section{
   flex-direction: column;
   padding: 0 40px;
   margin: 20px 0;
+}
+
+.Toastify{
+  margin: 0;
+}
+
+form{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  input:not([type="submit"]){
+    background-color: #f8f8f8;
+    padding: 15px;
+    border-radius: 10px;
+    outline: none;
+    border: 1px solid #efefef;
+    min-width: 300px;
+  }
+
+  input:not([type="submit"]):focus, input:not([type="submit"]):hover{
+    border: 1px solid var(--color-accent);
+  }
 }

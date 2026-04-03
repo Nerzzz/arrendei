@@ -34,6 +34,7 @@ router.post("/", async (req, res) => {
         uid:req.body.uid,
         username:req.body.username,
         email:req.body.email,
+        cell:req.body.cell
     })
 
     try{

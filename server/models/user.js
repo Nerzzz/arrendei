@@ -13,6 +13,20 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    cell:{
+        type: String,
+        required: true
+    },
+    posts:{
+        type: Number,
+        required: false,
+        default: 0
+    },
+    image:{
+        type: String,
+        required: false,
+        default: "/images/user-placeholder-image.png"
+    }
 })
 
 module.exports = mongoose.model("User", userSchema)
