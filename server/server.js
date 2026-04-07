@@ -15,11 +15,7 @@ conn.on("error", (error) => console.error(error))
 conn.once("open", () => console.log("Open"))
 
 app.use(express.json())
-app.use(cors())
-
-app.get("/teste", (req, res) => {
-    res.send("bateu aqui")
-})
+app.use(cors({origin:true, credentials:true}))
 
 const userRouter = require("./routes/users")
 app.use("/users", userRouter)

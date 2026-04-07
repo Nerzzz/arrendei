@@ -20,7 +20,7 @@ function CreatePost() {
 
      let navigate = useNavigate()
 
-     function createPost(e){
+     async function createPost(e){
           e.preventDefault()
           
           if(title.length == 0){
@@ -52,12 +52,15 @@ function CreatePost() {
           }
 
           try{
-               fetch("https://arrendei-630d.onrender.com/posts", {
+               const response = await fetch("http://localhost:10000/posts", {
                     method: "POST",
                     headers: {"Content-Type": "application/json"},
                     body: formData
                })
-               feedbackToast(`Item anunciado com sucesso!`, true)
+
+               if(response){
+                    feedbackToast(`Item anunciado com sucesso!`, true)
+               }
           } catch(err){
                feedbackToast(`Um erro ocorreu: ${err}`, false)
                return
