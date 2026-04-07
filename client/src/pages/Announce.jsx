@@ -8,8 +8,6 @@ import ActionButton from "../components/ActionButton"
 import { feedbackToast } from "../utils/feedbackToast"
 
 function CreatePost() {
-     const [titLen, setTitlen] = useState(0)
-     const [desLen, setDesLen] = useState(0)
 
      const [title, setTitle] = useState("")
      const [desc, setDesc] = useState("")
@@ -73,13 +71,13 @@ function CreatePost() {
                     <form onSubmit={createPost}>
                          <label htmlFor="">
                               <span>Título do anúncio</span>
-                              <input type="text" placeholder="Titulo" maxLength={100} onChange={(e) => setTitle(e.target.value.length)} />
-                              <span className="text-[8pt] text-gray-500" onChange={(e) => setTitlen(e.target.value)}>{titLen}/100</span>
+                              <input type="text" placeholder="Titulo" maxLength={100} onChange={(e) => setTitle(e.target.value)} />
+                              <span className="text-[8pt] text-gray-500">{title.length}/100</span>
                          </label>
                          <label htmlFor="">
                               <span>Descrição do anúncio</span>
-                              <textarea maxLength={500} onChange={(e) => setDesc(e.target.value.length)}></textarea>
-                              <span className="text-[8pt] text-gray-500" onChange={(e) => setDesLen(e.target.value)}>{desLen}/500</span>
+                              <textarea maxLength={500} onChange={(e) => setDesc(e.target.value)}></textarea>
+                              <span className="text-[8pt] text-gray-500">{desc.length}/500</span>
                          </label>
                          <label htmlFor="">
                               <span>Imagens</span>
