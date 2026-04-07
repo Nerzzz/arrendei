@@ -54,7 +54,6 @@ function CreatePost() {
           try{
                const response = await fetch("https://arrendei-630d.onrender.com/posts", {
                     method: "POST",
-                    headers: {"Content-Type": "application/json"},
                     body: formData
                })
 
