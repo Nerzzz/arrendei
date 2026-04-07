@@ -19,7 +19,7 @@ function Register() {
 
     async function sendUser(uid) {
         try{
-            const response = await fetch("http://arrendei-630d.onrender.com/users", {
+            const response = await fetch("https://arrendei-630d.onrender.com/users", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
