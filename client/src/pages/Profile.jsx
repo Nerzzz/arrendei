@@ -1,9 +1,14 @@
 import { useContext, useEffect, useState } from 'react'
 import { AuthContext } from '../utils/authContext'
+import { Navigate } from 'react-router-dom'
 
-import { IconPencilCog, IconLoader2 } from '@tabler/icons-react'
+import { signOut, getAuth } from 'firebase/auth'
+
+import { IconPencilCog, IconLoader2, IconLogout } from '@tabler/icons-react'
 
 import PostsView from '../components/PostsView'
+
+import { feedbackToast } from '../utils/feedbackToast'
 
 function Profile() {
   const { user, loading } = useContext(AuthContext)
@@ -18,23 +23,41 @@ function Profile() {
     .then(data => setUserData(data))
   },[!user])
 
+  function logoutHandle(){
+    const auth = getAuth()
+    signOut(auth).then(() => {
+      feedbackToast("Saiu da conta com sucesso", true)
+      return <Navigate to={"/login"} />
+    }).catch((err) => {
+      feedbackToast(`Ocorreu um erro: ${err.message}`, false)
+    })
+  }
+
   return (
     <main className='flex justify-center items-center flex-1'>
 
-      {userData && <section className='flex flex-col items-center flex-1 overflow-y-auto w-full'>
+      {userData && <section className='flex flex-col items-center justify-center flex-1 overflow-y-auto w-full'>
 
-        {userData && <div className='flex items-center justify-between bg-white px-[40px] py-[20px] rounded-[10px] shadow-[0_0_20px_rgba(10,10,10,0.1)] w-full'>
-          <div className='flex gap-[40px] items-center'>
-            <img src="images/user-placeholder-image.png" alt="" className='w-[150px] h-[150px] object-cover rounded-full' />
+        <div className='flex lg:flex-row flex-col items-center justify-between bg-white md:px-[40px] md:py-[20px] p-[10px] rounded-[10px] shadow-[0_0_20px_rgba(10,10,10,0.1)] gap-[20px] w-full'>
+          <div className='flex lg:gap-[40px] gap-[20px] items-center'>
+            <img src={userData.image} alt="" className='lg:w-[150px] lg:h-[150px] h-[50px] w-[50px] object-cover rounded-full' />
             <div className='flex flex-col'>
-              <span className='text-[20pt] font-medium'>{userData.username}</span>
-              <span className='text-[10pt] text-gray-500'>{userData.email}</span>
+              <span className='sm:text-[20pt] text-[12pt] font-medium'>{userData.username}</span>
+              <span className='text-[10pt] sm:inline hidden text-gray-500'>{userData.email}</span>
             </div>
           </div>
-          <button className='grad-green-to-right h-full px-[10px] rounded-full text-white cursor-pointer'>
-            <IconPencilCog />
-          </button>
-        </div>}
+          
+          <div className='h-full flex sm:items-end items-center mt-0 gap-[10px] flex-col'>
+            <button className='flex gap-[8px] cursor-pointer'>
+              <IconPencilCog />
+              <span>Editar Perfil</span>
+            </button>
+            <button onClick={logoutHandle} className='flex gap-[8px] cursor-pointer w-fit bg-transparent text-red-500'>
+              <IconLogout />
+              <span>Sair</span>
+            </button>
+          </div>
+        </div>
 
         <PostsView endPoint={`/posts/user/${user.uid}`} />
 

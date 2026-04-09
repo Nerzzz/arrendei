@@ -99,6 +99,7 @@ function CreatePost() {
                                    <option value="">Selecione um tipo</option>
                                    <option value="tool">Ferramenta</option>
                                    <option value="vehicle">Veículo</option>
+                                   <option value="building">Imóvel</option>
                                    <option value="other">Outro</option>
                               </select>
                          </label>

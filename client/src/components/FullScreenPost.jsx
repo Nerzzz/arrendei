@@ -5,6 +5,7 @@ import { Navigate } from "react-router-dom"
 import { IconBrandWhatsappFilled, IconXFilled, IconPencilFilled, IconLoader2 } from "@tabler/icons-react"
 
 import Tag from "./Tag"
+import TypeTag from "./TypeTag"
 import EditPostWindow from "./EditPostWindow"
 
 function EditProfileWindow({data, onClose, onUpdate}) {
@@ -23,6 +24,8 @@ function EditProfileWindow({data, onClose, onUpdate}) {
      const [ownerData, setOwnerData] = useState(null)
 
      const [isOpenEdit, setIsOpenEdit] = useState(false)
+
+     console.log(data)
 
      function openEdit(){
           if(isOpenEdit) return setIsOpenEdit(false)
@@ -43,7 +46,7 @@ function EditProfileWindow({data, onClose, onUpdate}) {
      }
 
      return (
-          <div className="z-50 bg-[#2c2c2c9c] top-0 left-0 fixed w-dvw h-dvh flex justify-center items-center gap-[20px] p-[40px]">
+          <div className="z-50 bg-[#2c2c2c9c] top-0 left-0 fixed w-dvw h-dvh flex md:justify-center items-center gap-[20px] p-[40px] overflow-x-auto">
                {ownerData && <div className="bg-white p-[20px] rounded-[10px] h-full">
                     <nav className="w-fit mr-0 ml-auto flex gap-[30px]">
                          {editable && <button onClick={openEdit} className="cursor-pointer flex items-center gap-[5px]"><IconPencilFilled />Editar</button>}
@@ -60,11 +63,12 @@ function EditProfileWindow({data, onClose, onUpdate}) {
                                    <img src={ownerData.image} alt="" className="w-[40px] h-[40px] rounded-full" />
                                    <span>{ownerData.username}</span>
                               </div>
+                              <span>{data.post.createdAt}</span>
                               <div className="overflow-y-auto flex flex-col">
                                    <h2>{data.post.title}</h2>
                                    <p>{data.post.desc}</p>
-                                   <span className="mt-[10px]">Tipo: {data.post.type}</span>
                               </div>
+                              <TypeTag type={data.post.type} />
                               <div className="mb-o mt-auto flex flex-col gap-[10px]">
                                    <a className="flex gap-[5px] items-center text-accent font-medium" href="https://wa.me/5519999204765" target="_blank"><IconBrandWhatsappFilled />Conversar com {ownerData.username}</a>
                                    <Tag isRent={data.post.isRent} />
@@ -73,7 +77,7 @@ function EditProfileWindow({data, onClose, onUpdate}) {
                     </div>
                </div>}
                {!ownerData && <IconLoader2 className="text-accent animate-spin" size={40} />}
-               {isOpenEdit && <EditPostWindow onClose={openEdit} onUpdate={onUpdate} data={data} />}
+               {isOpenEdit && <EditPostWindow onClose={() => setIsOpenEdit(false)} onUpdate={onUpdate} data={data} />}
           </div>
      )
 }

@@ -38,7 +38,7 @@ function Login() {
   }
 
   return (
-    <main className="flex justify-center items-center h-screen flex-1 bg-[#f7f7f7]">
+    <main className="flex justify-center items-center h-full flex-1 bg-[#f7f7f7]">
       <div className='bg-white shadow-[0_0_60px_rgba(0,0,0,0.10)] flex rounded-[20px]'>
         <img src="/images/mulher-utilizando-o-celular.png" alt="" className="max-w-[300px] object-cover rounded-tl-[20px] rounded-bl-[20px]" />
         <div className='flex flex-col px-[60px] flex-1 justify-center'>

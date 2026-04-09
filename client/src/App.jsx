@@ -29,7 +29,7 @@ function AppContent(){
       {!hideAside && <Aside />}
       <div className="flex-1 flex flex-col overflow-y-auto h-[100dvh]">
         <Routes>
-          <Route path='/' element={<Feed />}/>
+          <Route path='/' element={<PrivateRoute><Feed /></PrivateRoute>}/>
           <Route path='/login' element={<Login />}/>
           <Route path='/register' element={<Register />} />
           <Route path='/profile' element={<PrivateRoute><Profile /></PrivateRoute>}/>

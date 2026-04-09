@@ -13,6 +13,7 @@ function EditPostWindow({data, onUpdate, onClose}) {
      const [isRent, setIsRent] = useState(data.post.isRent)
 
      const [sendingEdit, setSendingEdit] = useState(false)
+     const [deleting, setDeleting] = useState(false)
 
      async function editHandler(e){
           e.preventDefault()
@@ -23,7 +24,7 @@ function EditPostWindow({data, onUpdate, onClose}) {
           setSendingEdit(true)
           try{
 
-               const res = await fetch(`http://localhost:10000/posts/${data._id}`, {
+               const res = await fetch(`https://arrendei-630d.onrender.com/posts/${data._id}`, {
                     method: "PUT",
                     headers: {
                          "Content-Type": "application/json"
@@ -47,11 +48,31 @@ function EditPostWindow({data, onUpdate, onClose}) {
           }
      }
 
+     async function deleteHandler(e) {
+          e.preventDefault()
+          setDeleting(true)
+          try {
+               const res = await fetch(`https://arrendei-630d.onrender.com/posts/${data._id}`, {
+                    method: "DELETE",
+                    headers: {"Content-Type": "application/json"}
+               })
+
+               if(res.ok){
+                    feedbackToast(`Anúncio deletado com sucesso!`, true)
+                    onClose()
+                    onUpdate()
+               }
+          } catch (err) {
+               feedbackToast(`Não foi possivel deletar: ${err}`, false)
+               setDeleting(false)
+          }
+     }
+
      return (
           <div className='bg-white p-[20px] rounded-[10px] flex-1 h-full flex flex-col gap-[20px]'>
                <h2>Editar Anúncio</h2>
-               <form onSubmit={editHandler} className='h-full'>
-                    <div className='overflow-y-auto flex flex-col gap-[20px]'>
+               <form onSubmit={editHandler} className='h-full overflow-y-auto'>
+                    <div className='flex flex-col gap-[20px]'>
                          <label htmlFor="">
                               <span>Título</span>
                               <input type="text" maxLength={100} value={title} placeholder='Título' onChange={(e) => setTitle(e.target.value)} />
@@ -67,6 +88,7 @@ function EditPostWindow({data, onUpdate, onClose}) {
                               <select value={type} onChange={(e) => setType(e.target.value)}>
                                    <option value="tool">Ferramenta</option>
                                    <option value="vehicle">Veículo</option>
+                                   <option value="building">Imóvel</option>
                                    <option value="other">Outro</option>
                               </select>
                          </label>
@@ -80,7 +102,7 @@ function EditPostWindow({data, onUpdate, onClose}) {
                               <ActionButton text="Salvar" isLoading={sendingEdit} />
                               <button onClick={onClose} className='p-[10px] bg-gray-200 rounded-[10px] cursor-pointer'>Cancelar</button>
                          </div>
-                         <DeleteButton text={"Deletar"} />
+                         <DeleteButton text={"Deletar"} onClick={deleteHandler} loading={deleting} />
                     </nav>
                </form>
           </div>

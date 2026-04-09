@@ -26,14 +26,19 @@ function PostsView({endPoint}) {
           fetchPosts()
      }, [])
 
+     function handleUpdate(){
+          setOpen(false)
+          fetchPosts()
+     }
+
      return (
-          <div className='mt-[20px] flex flex-wrap gap-[20px] py-[20px] w-full h-full'>
+          <div className='mt-[20px] flex flex-wrap lg:justify-normal justify-center gap-[20px] py-[20px] w-fit h-full'>
                {posts && posts.map((post) => {
-                    return <Post onOpen={() => {setSelectedPost(post); setOpen(true)}} key={post._id} userUid={post.userUid} id={post._id} title={post.post.title} isRent={post.post.isRent} imgs={post.post.images} />
+                    return <Post onOpen={() => {setSelectedPost(post); setOpen(true)}} key={post._id} userUid={post.userUid} id={post._id} title={post.post.title} type={post.post.type} isRent={post.post.isRent} imgs={post.post.images} />
                })}
 
-               {open && <FullScreenPost onUpdate={fetchPosts} onClose={() => setOpen(false)} data={selectedPost}/>}
-               {fething && <div className='flex h-100 flex-1 justify-center items-center'>
+               {open && <FullScreenPost onUpdate={handleUpdate} onClose={() => setOpen(false)} data={selectedPost}/>}
+               {fething && <div className='flex h-100 justify-center items-center'>
                     <IconLoader2 className="text-accent animate-spin" size={40} />
                </div>}
           </div>
