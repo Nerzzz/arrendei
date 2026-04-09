@@ -22,6 +22,7 @@ function PostsView({endPoint}) {
      }
      
      useEffect(() => {
+          setOpen(false)
           fetchPosts()
      }, [])
 

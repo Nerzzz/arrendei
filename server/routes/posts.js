@@ -30,7 +30,7 @@ router.get("/user/:userUid", async (req, res) =>{
           res.json(posts)
 
           if(!posts || posts.length === 0){
-            return res.status(404).json({message:"posts não encontrados"})
+            return res.status(404).json({message:"anuncios não encontrados"})
         }
      } catch(err){
           res.status(500).json({message: err.message})
@@ -46,11 +46,11 @@ router.get("/:postId", async (req, res) =>{
 
      try{
           const post = await Post.findById(postId)
+          
+          if(!post || posts.length === 0) return res.status(404).json({message:"anuncio não encontrado"})
+
           res.json(post)
 
-          if(!post || posts.length === 0){
-            return res.status(404).json({message:"post não encontrado"})
-        }
      } catch(err){
           res.status(500).json({message: err.message})
      }
@@ -85,6 +85,30 @@ router.post("/", upload.array("images"), async (req, res) =>{
      }
 })
 
+router.put("/:postId", async (req, res) => {
+     const postId = req.params.postId
+
+     if (!mongoose.Types.ObjectId.isValid(postId)) return res.status(400).json({ message: "id inválido" })
+
+     try{
+
+          const post = await Post.findOneAndUpdate({_id: postId}, {
+               $set:{
+                    "post.title": req.body.title,
+                    "post.desc": req.body.desc,
+                    "post.type": req.body.type,
+                    "post.isRent": req.body.isRent
+               }
+          }, { new: true })
+
+
+          if(!post) return res.status(404).json({message: "anuncio não encontrado"})
+          res.status(200).json({message: "anuncio atualizado", post})
+     } catch(err){
+          res.status(400).json({message: err.message})
+     }
+})
+
 router.delete("/:postId", async (req, res) => {
      const postId = req.params.postId
 
@@ -93,9 +117,15 @@ router.delete("/:postId", async (req, res) => {
      }
 
      try{
+          const result = await Post.deleteOne({_id: postId})
 
+          if(result.deletedCount > 0){
+               res.status(200).json({message: "anuncio deletado"})
+          } else {
+               res.status(404).json({message: "anuncio não encontrado"})
+          }
      } catch(err){
-          res.status(404).json()
+          res.status(500).json({message: err.message})
      }
 })
 

@@ -10,6 +10,14 @@ import EditPostWindow from "./EditPostWindow"
 function EditProfileWindow({data, onClose, onUpdate}) {
 
      const { user, loading } = useContext(AuthContext)
+
+     useEffect(() => {
+          if(!user){
+               <Navigate to={"/login"} />
+          }
+          if(user.uid == data.userUid) setEditable(true)
+     }, [user, data])
+
      const [editable, setEditable] = useState(false)
 
      const [ownerData, setOwnerData] = useState(null)
@@ -20,17 +28,6 @@ function EditProfileWindow({data, onClose, onUpdate}) {
           if(isOpenEdit) return setIsOpenEdit(false)
           setIsOpenEdit(true)
      }
-
-     useEffect(() => {
-          if(!user){
-               <Navigate to={"/login"} />
-          }
-          if(user.uid == data.userUid) setEditable(true)
-     }, [user, data])
-
-     useEffect(() => {
-          console.log(data)
-     })
 
      useEffect(() => {
           fetch(`https://arrendei-630d.onrender.com/users/${data.userUid}`)
@@ -76,7 +73,7 @@ function EditProfileWindow({data, onClose, onUpdate}) {
                     </div>
                </div>}
                {!ownerData && <IconLoader2 className="text-accent animate-spin" size={40} />}
-               {isOpenEdit && <EditPostWindow onClose={onClose} onUpdate={onUpdate} data={data} />}
+               {isOpenEdit && <EditPostWindow onClose={openEdit} onUpdate={onUpdate} data={data} />}
           </div>
      )
 }
