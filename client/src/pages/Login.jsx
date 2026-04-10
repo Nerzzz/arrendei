@@ -7,7 +7,7 @@ import { auth } from '../../firebase.config'
 import ActionButton from '../components/ActionButton'
 import { feedbackToast } from '../utils/feedbackToast'
 
-import { firebaseResponseFormat } from '../utils/firebaseResponseFormat'
+import { firebaseResponseFormat } from '../utils/dataFormat'
 
 function Login() {
 

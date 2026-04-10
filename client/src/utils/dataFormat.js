@@ -19,3 +19,15 @@ export function firebaseResponseFormat(code){
           return "Um erro inesperado ocorreu"
   }
 }
+
+const months = [
+     "Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Des"
+]
+
+export function dateFormat(date){
+     let day = new Date(date).getDate()
+     let month = new Date(date).getMonth()
+     let year = new Date(date).getFullYear()
+
+     return `${day} de ${months[month]} de ${year}`
+}

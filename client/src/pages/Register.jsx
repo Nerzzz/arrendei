@@ -5,7 +5,7 @@ import { createUserWithEmailAndPassword, getAuth } from "firebase/auth"
 import { auth } from "../../firebase.config"
 
 import { feedbackToast } from "../utils/feedbackToast"
-import { firebaseResponseFormat } from "../utils/firebaseResponseFormat"
+import { firebaseResponseFormat } from "../utils/dataFormat"
 
 import ActionButton from "../components/ActionButton"
 
@@ -57,8 +57,13 @@ function Register() {
             feedbackToast("Preencha o campo de usuário!", false)
             return false 
         }
+        
         if(cell == "") { 
             feedbackToast("Informe um número de Whatsapp!", false)
+            return false
+        }
+        if(!/^\d{2}9\d{8}$/.test(cell)){
+            feedbackToast("Informe um número válido!", false)
             return false
         }
         

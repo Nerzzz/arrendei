@@ -8,6 +8,8 @@ import Tag from "./Tag"
 import TypeTag from "./TypeTag"
 import EditPostWindow from "./EditPostWindow"
 
+import { dateFormat } from "../utils/dataFormat"
+
 function EditProfileWindow({data, onClose, onUpdate}) {
 
      const { user, loading } = useContext(AuthContext)
@@ -24,8 +26,6 @@ function EditProfileWindow({data, onClose, onUpdate}) {
      const [ownerData, setOwnerData] = useState(null)
 
      const [isOpenEdit, setIsOpenEdit] = useState(false)
-
-     console.log(data)
 
      function openEdit(){
           if(isOpenEdit) return setIsOpenEdit(false)
@@ -63,14 +63,14 @@ function EditProfileWindow({data, onClose, onUpdate}) {
                                    <img src={ownerData.image} alt="" className="w-[40px] h-[40px] rounded-full" />
                                    <span>{ownerData.username}</span>
                               </div>
-                              <span>{data.post.createdAt}</span>
+                              <span>Anunciado em {dateFormat(data.post.createdAt)}</span>
                               <div className="overflow-y-auto flex flex-col">
                                    <h2>{data.post.title}</h2>
                                    <p>{data.post.desc}</p>
                               </div>
                               <TypeTag type={data.post.type} />
                               <div className="mb-o mt-auto flex flex-col gap-[10px]">
-                                   <a className="flex gap-[5px] items-center text-accent font-medium" href="https://wa.me/5519999204765" target="_blank"><IconBrandWhatsappFilled />Conversar com {ownerData.username}</a>
+                                   <a className="flex gap-[5px] items-center text-accent font-medium" href={`https://wa.me/55${ownerData.cell}?text=Olá%2C+${ownerData.username}%21+Gostaria+de+falar+sobre+o%28a%29+${data.post.title}+anunciado+no+Arrendei%21`} target="_blank"><IconBrandWhatsappFilled />Conversar com {ownerData.username}</a>
                                    <Tag isRent={data.post.isRent} />
                               </div>
                          </div>
