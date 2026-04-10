@@ -62,7 +62,7 @@ function Register() {
             feedbackToast("Informe um número de Whatsapp!", false)
             return false
         }
-        if(!/^\d{2}9\d{8}$/.test(cell)){
+        if(!/^[1-9]{2}9\d{8}$/.test(cell)){
             feedbackToast("Informe um número válido!", false)
             return false
         }
